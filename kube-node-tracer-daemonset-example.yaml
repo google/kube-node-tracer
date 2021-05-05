@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: gke-node-tracer
+  namespace: <NAMESPACE>                        #Namespace for the pod
+  labels:
+    app: gke-node-tracer
+spec:
+  selector:
+    matchLabels:
+      app: gke-node-tracer
+  template:
+    metadata:
+      labels:
+        app: gke-node-tracer
+    spec:
+      hostNetwork: true                          #Use host network namespace (Note: This is required to collect on node primary NIC)
+      hostPID: false                             #User host procress ID namespace
+      hostIPC: false                             #Use host IPC namespace 
+      containers:
+        - name: node-tracer
+          image: gcr.io/rich-test-env-02/gke-node-tracer               
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            privileged: true                    #Execute in priviledged mode to run as root on the host 
+          args: ["-N","$(NODE_NAME)","-b","$(GCS_BUCKET)", "-C", "$(FILE_SIZE_MB)", "-W", $(FILE_COUNT)]
+          volumeMounts:
+            - name: dump
+              mountPath: /dump/
+              subPathExpr: $(NODE_NAME)
+          env:
+          #Metadata ENV
+          - name: NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+          #TCPdump ENV
+          - name: GCS_BUCKET
+            value: "<GCS-BUCKET-NAME>"
+          - name: FILE_SIZE_MB                  #Optional - Default 100 MB
+            value: "100"
+          - name: FILE_COUNT                    #Optional - Default 100
+            value: "100"
+  
+      #EmptyDir volume (Default)
+      volumes:
+        - name: dump
+          emptyDir: {}
+
+      #Filestore (NFS) volume - Note: Use this option for a resource constrained clusters (See: example/pvc_filestore and example/pv_filestore)
+      #volumes:
+      #  - name: dump
+      #    persistentVolumeClaim:
+      #      claimName: fileserver-claim
+      #      readOnly: false
+        
+      tolerations:
+        - effect: "NoExecute"
+          operator: "Exists"
+        - effect: "NoSchedule"
+          operator: "Exists"
