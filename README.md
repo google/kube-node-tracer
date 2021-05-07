@@ -32,14 +32,14 @@ This tool utilizes `tcpdump` to perform rotating packet captures on the node's p
 
 To build `Kube Node Tracer` simply run the following `docker` command to build an image using the Dockerfile: 
 ```
-docker build -t gke-node-tracer . 	
+docker build -t kube-node-tracer . 	
 ```
 
 `Kube Node Tracer` should be deployed as priviled DaemonSet which operates in the host network namespace. See /examples for sample DaemonSet.
 
 If runnung `Kube Node Tracer` as a stand-alone container using Docker the --network flag will neeed to be set to `host` as follows:
 ```
-docker run -dt --network host --name <CONTAINER-NAME> gke-node-tracer -N <NODE-NAME> -b <GCS-BUCKET-NAME>
+docker run -dt --network host --name <CONTAINER-NAME> kube-node-tracer -N <NODE-NAME> -b <GCS-BUCKET-NAME>
 ```
 
 ## Contributing

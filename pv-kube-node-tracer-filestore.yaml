@@ -1,5 +1,3 @@
-#!/bin/bash
-#
 # Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,8 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-# (Optional) Example Google Filestore (NFS) Persistent Volume -- See: https://cloud.google.com/filestore/docs/accessing-fileshares#create_a_persistent_volume
+#
+# Description: (Optional) Example Google Filestore (NFS) Persistent Volume -- See: https://cloud.google.com/filestore/docs/accessing-fileshares#create_a_persistent_volume
 # Note: A Filestore NFS must first be created: https://cloud.google.com/filestore/docs/quickstart-console
 # To apply:  kubectl apply -f ./path-to/pv-kube-node-tracer-filestore.yaml
 
