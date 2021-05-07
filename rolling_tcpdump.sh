@@ -53,8 +53,8 @@ do
   esac
 done
 
-##Computed tcpdump arguments 
-##Grep the primary network interface -- if no interface is provided in the arguments
+## Computed tcpdump arguments 
+## Grep the primary network interface -- if no interface is provided in the arguments
 if [ -z "$interface" ] || [ "$interface" = 'X' ]; then 
   interface="`tcpdump -D | awk -F"." '/1\./ { print $2}' | awk '{ print $1 }'`"                #Network interface -- Kubernetes only uses a single interface for its nodes
   echo "Node interface not specified in arguments. Automatically capturing on node interface: ${interface}" 
@@ -62,7 +62,7 @@ if [ -z "$interface" ] || [ "$interface" = 'X' ]; then
 fi
 
 
-##Computed Kubernetes arguments
+## Computed Kubernetes arguments
 if [ -z "$filecount" ]; then                    #If the 'filecount' (-W) isn't specified then date-time format otherwise the file cannot be time formatted
   pcap_file="${nodename}-%Y%m%d%H%M%S.pcap"
 else

@@ -1,5 +1,10 @@
 # Kube Node Tracer
 
+This is not an officially supported Google product.
+
+*Authored by:* Richard Balfour (RichardBalfour)
+
+## Overview
 Troubleshooting transient/ intermittent networking issues is a tedious process, oftentimes requiring packet trace collection and analysis to determine the root-cause. The container orchestration environment Kubernetes (K8s) poses another set of challenges due to its potential scale, ephemeral nature, and layers of abstraction. 
 
 The `Kube Node Tracer` aims to provide K8s users a tool to perform rolling packet captures on the host network namespace for nodes within a cluster for use in troubleshooting transient networking issues. To limit the impact on cluster resources, `Kube Node Tracer` automatically offloads packet capture files to a sink (ex. Google Cloud Storage) for later analysis. 
