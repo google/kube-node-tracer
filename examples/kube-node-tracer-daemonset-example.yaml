@@ -35,7 +35,7 @@ spec:
       hostIPC: false                             #Use host IPC namespace 
       containers:
         - name: node-tracer
-          image: gcr.io/rich-test-env-02/kube-node-tracer               
+          image: <KUBE NODE TRACER IMAGE>            
           imagePullPolicy: IfNotPresent
           securityContext:
             privileged: true                    #Execute in priviledged mode to run as root on the host 
